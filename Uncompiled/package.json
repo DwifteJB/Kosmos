@@ -1,0 +1,24 @@
+{
+  "name": "kosmos",
+  "version": "0.0.1",
+  "description": "kosmos selfbot for discord.js",
+  "main": "key.js",
+  "dependencies": {
+    "node-fetch": "^2.6.1",
+    "prompt-sync": "^4.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DwifteJB/Kosmos.git"
+  },
+  "author": "DwifteJB and Thunder7Yoshi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DwifteJB/Kosmos/issues"
+  },
+  "homepage": "https://github.com/DwifteJB/Kosmos#readme"
+}

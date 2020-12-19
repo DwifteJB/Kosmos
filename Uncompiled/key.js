@@ -66,9 +66,41 @@ const kosmosJson = async () => {
 
 const isTokenValid = async token => {
   await client.login(token);
-  if (client.token == undefined) console.log('Invalid token');
+  if (client.token == undefined) return console.log('Invalid token');
 }
+const loadAll = async () => {
 
+  fs.readdir("./src/events/", (err, files) => {
+    if (err) return console.error;
+    for (const file of files) {
+      if (!file.endsWith(".js")) return;
+      const evt = require(`./src/events/${file}`);
+      let evtName = file.split(".")[0];
+      client.on(evtName, evt.bind(null, client));
+    };
+  });
+
+  .readdirSync("src/commands")
+    .filter(file => {
+      return file.endsWith(".js");
+    });
+  console.log("Kósmos Loading Commands");
+  console.log("╭────────────────────┬──╮");
+  for (const file of folder) {
+    try {
+    const command = require(`./src/commands/${file}`);
+    const boxCmdName = `${command.name}`.padEnd(20);
+    console.log(`│${boxCmdName}│✅│`);
+    console.log('├────────────────────┼──┤');
+    client.commands.set(command.name, command);
+    } catch (error) {
+      const boxCmdName = `${file}`.padEnd(20);
+      console.log(`│${boxCmdName}│❌│`);
+    }
+  }
+  console.log('╰────────────────────┴──╯');
+
+}
 const terminal = () => {
   const terminalContent = prompt(`kòsmos:/root/${client.user.id} ${client.user.username}# `)
   const terminalArgs = terminalContent.toLowerCase().trim().split(/ +/);
@@ -92,26 +124,14 @@ const terminal = () => {
     console.log("kòsmos: command could not be found: " + terminalArgs);
   }
 }
-const runMessageEvent = () => {
-
-  fs.readdir("./src/events/", (err, files) => {
-    if (err) return console.error;
-    for (const file of files) {
-      if (!file.endsWith(".js")) return;
-      const evt = require(`./src/events/${file}`);
-      let evtName = file.split(".")[0];
-      client.on(evtName, evt.bind(null, client));
-    };
-  });
-}
 
 const Login = async keyPrompt => {
   await isKeyValid(keyPrompt);
   await kosmosJson();
   await isTokenValid(token);
-  runMessageEvent();
   process.stdout.write("\x1Bc")
   console.log(Array(process.stdout.rows + 1).join('\n'));
+  await loadAll();
   console.log("Kòsmos Terminal, type help for commands!\n\nKòsmos created by DwifteJB and Thunder7Yoshi");
   while (true) terminal();
 }

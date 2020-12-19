@@ -96,7 +96,7 @@ const Login = async keyPrompt => {
   await client.login(token);
   if (client.token == undefined) return console.log("The token in kosmos.json was invalid and we couldn't connect to the discord api.");
   
-  let terminal = "On";
+
   console.log("Kòsmos Terminal, type help for commands!\n\nKòsmos created by DwifteJB and Thunder7Yoshi");
   while (terminal == "On") {
     try {
@@ -109,6 +109,9 @@ const Login = async keyPrompt => {
     } else if (cmd.toLowerCase() == "exit") {
       // by defining terminal as 'off' it will stop the while loop.
       terminal = "Off"
+    } else if (cmd.toLowerCase() == "servers" {
+      console.log("Servers:");
+      client.guilds.cache.forEach(guild => console.log(`${guild.name} | ${guild.members.cache.size} Members | ${guild.id} ID`))
     } else {
       //  if there is no command with the value of 'cmd' it will display an error message.
       console.log("kòsmos: command could not be found: " + cmd);

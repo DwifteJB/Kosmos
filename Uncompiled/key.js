@@ -114,12 +114,12 @@ const Login = async keyPrompt => {
     } catch (err) {
       return console.log("The token in kosmos.json was invalid and we couldn't connect to the discord api.");
     }
-    if (cmd.toLowerCase() == "help") {
+    if (cmd == "help") {
       console.log("Help: \n\nExit: Exits the Selfbot\nServers: Shows all the servers your in\nPrefix: Shows your prefix");
-    } else if (cmd.toLowerCase() == "exit") {
+    } else if (cmd == "exit") {
       // by defining terminal as 'off' it will stop the while loop.
       terminal = "Off"
-    } else if (cmd.toLowerCase() == "servers") {
+    } else if (cmd == "servers") {
       console.log("Servers:");
       client.guilds.cache.forEach(guild => console.log(`${guild.name} | ${guild.members.cache.size} Members | ${guild.id} ID`))
     } else {

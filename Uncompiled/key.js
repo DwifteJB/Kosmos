@@ -14,6 +14,7 @@ An Advanced and Private Discord Selfbot
 
 //Global variables
 let token;
+let cmd;
 let prefix;
 
 const isKeyValid = async key => {
@@ -109,7 +110,6 @@ const Login = async keyPrompt => {
   console.log("Kòsmos Terminal, type help for commands!\n\nKòsmos created by DwifteJB and Thunder7Yoshi");
   while (terminal == "On") {
     try {
-      let cmd;
       cmd = prompt(`kòsmos:/root/${client.user.id} ${client.user.username}# `);
     } catch (err) {
       return console.log("The token in kosmos.json was invalid and we couldn't connect to the discord api.");

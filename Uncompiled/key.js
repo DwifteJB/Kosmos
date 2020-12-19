@@ -94,9 +94,7 @@ const Login = async keyPrompt => {
     };
   });
 
-  console.clear();
-  process.stdout.write("\x1Bc")
-  console.log(Array(process.stdout.rows + 1).join('\n'));
+  
   try {
       await client.login(token);
   } catch {
@@ -105,6 +103,9 @@ const Login = async keyPrompt => {
   if (client.token == undefined) return console.log("The token in kosmos.json was invalid and we couldn't connect to the discord api.");
   
   let terminal = "On";
+  console.clear();
+  process.stdout.write("\x1Bc")
+  console.log(Array(process.stdout.rows + 1).join('\n'));
   console.log("Kòsmos Terminal, type help for commands!\n\nKòsmos created by DwifteJB and Thunder7Yoshi");
   while (terminal == "On") {
     try {

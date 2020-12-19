@@ -70,6 +70,29 @@ const isTokenValid = async token => {
 }
 const loadAll = () => {
 
+  const eventfold = fs
+    .readdirSync("src/events")
+      .filter(file => {
+        return file.endsWith(".js");
+      });
+  console.log("Kòsmos loading events");
+
+  for (const file of eventfold) {
+    try {
+    const evenname = `${file}`.padEnd(20);
+    console.log(`│${evenname}│✅│`);
+    console.log('├────────────────────┼──┤');
+    if (!file.endsWith(".js")) return;
+    const evt = require(`./src/events/${file}`);
+    let evtName = file.split(".")[0];
+    client.on(evtName, evt.bind(null, client));
+    } catch (error) {
+      const boxCmdName = `${file}`.padEnd(20);
+      console.log(`│${boxCmdName}│❌│`);
+    }
+  }
+  console.log('╰────────────────────┴──╯');
+
   fs.readdir("./src/events/", (err, files) => {
     if (err) return console.error;
     for (const file of files) {
@@ -122,7 +145,7 @@ const terminal = () => {
   } else if (terminalArgs == "prefix") {
     console.log("Prefix: " + prefix);
   } else if (terminalArgs == "userinfo") {
-    console.log(`${client.user.username} Info:\nFriends ${client.user.friends.size}\nBlocked ${client.user.blockList.size}\nID: ${client.id}\nServers: (use the command servers)`);
+    console.log(`${client.user.username} Info:\nFriends ${client.user.friends.size}\nBlocked ${client.user.blockList.size}\nID: ${client.user.id}\nServers: (use the command servers)`);
   } else {
     //  if there is no command with the value of 'cmd' it will display an error message.
     console.log("kòsmos: command could not be found: " + terminalArgs[0]);

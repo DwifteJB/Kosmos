@@ -78,6 +78,7 @@ const loadAll = () => {
       let evtName = file.split(".")[0];
       client.on(evtName, evt.bind(null, client));
     };
+    console.log(`Loaded ${files.length} events`)
   });
 
   const folder = fs
@@ -95,8 +96,8 @@ const loadAll = () => {
     console.log('├────────────────────┼──┤');
     client.commands.set(command.name, command);
     } catch (error) {
-      const boxCmdName = `${file}`.padEnd(20);
-      console.log(`│${boxCmdName}│❌│`);
+      //const boxCmdName = `${file}`.padEnd(20);
+      //console.log(`│${boxCmdName}│❌│`);
     }
   }
   console.log('╰────────────────────┴──╯');
@@ -111,7 +112,7 @@ const terminal = () => {
   if (terminalArgs.length == 0) {
     console.log(" ");
   } else if (terminalArgs == "help") {
-    console.log("Exit: Exits the Selfbot\nServers: Shows all the servers your in\nPrefix: Shows your prefix");
+    console.log("Exit: Exits the Selfbot\nServers: Shows all the servers your in\nPrefix: Shows your prefix\nUserinfo: Shows info about you");
   } else if (terminalArgs == "exit") {
     process.exit();
     // literally just dies 
@@ -120,9 +121,11 @@ const terminal = () => {
     client.guilds.cache.forEach(guild => console.log(`${guild.name} | ${guild.members.cache.size} Members | ${guild.id} ID`))
   } else if (terminalArgs == "prefix") {
     console.log("Prefix: " + prefix);
+  } else if (terminalArgs == "userinfo") {
+    console.log(`${client.user.username} Info:\nFriends ${client.user.friends.size}\nBlocked ${client.user.blockList.size}\nID: ${client.id}\nServers: (use the command servers)`);
   } else {
     //  if there is no command with the value of 'cmd' it will display an error message.
-    console.log("kòsmos: command could not be found: " + terminalArgs);
+    console.log("kòsmos: command could not be found: " + terminalArgs[0]);
   }
 }
 

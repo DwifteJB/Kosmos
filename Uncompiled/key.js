@@ -66,7 +66,6 @@ const kosmosJson = async () => {
 
 const isTokenValid = async token => {
   await client.login(token);
-  console.clear();
   if (client.token == undefined) console.log('Invalid token');
 }
 

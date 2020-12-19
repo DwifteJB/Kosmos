@@ -4,7 +4,7 @@
   "description": "kosmos selfbot for discord.js",
   "main": "key.js",
   "dependencies": {
-    "discord.js": "^12.5.1",
+    "discord.js-plus": "^12.2.11",
     "node-fetch": "^2.6.1",
     "prompt-sync": "^4.2.0"
   },

@@ -1,4 +1,4 @@
-const Discord = require("discord.js");
+const Discord = require("discord.js-plus");
 const fs = require("fs");
 
 const { spawn, exec } = require("child_process");

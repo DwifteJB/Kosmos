@@ -3,14 +3,20 @@ const prompt = require('prompt-sync')({
 });
 const fetch = require("node-fetch");
 const fs = require("fs");
+const {
+  isRegExp
+} = require('util');
 console.clear();
 console.log(`
 Kòsmos.JS
 An Advanced and Private Discord Selfbot
 `);
-let ready = "No";
-const isKeyValid = async key => {
 
+//Global variables
+let token;
+let prefix;
+
+const isKeyValid = async key => {
   //Checking if the string isn't empty
   let newKey = '';
   if (key.length > 0) newKey = key;
@@ -35,82 +41,78 @@ const isKeyValid = async key => {
 
 const kosmosJson = async () => {
   if (!fs.existsSync(`./kosmos.json`)) {
+
     console.log('Since this is your first time using Kósmos, you\'ll have to set it up!');
     const token = prompt("What's your token? ");
     const prefix = prompt('Choose a prefix: ')
+
     try {
       fs.writeFile(`./kosmos.json`, `{\n  "token": "${token}",\n  "prefix": "${prefix}"\n}\n`, () => {})
     } catch (err) {
       return console.log("\nWe couldn't write to file. Check if you have permission to write in this directory. Otherwise run as root/admin");
     }
-    if (!fs.existsSync(`./kosmos.json`)) {
-      return console.log("\nWe couldn't write to file. Check if you have permission to write in this directory. Otherwise run as root/admin");
-    }
-  } else {
-    const json = JSON.parse(fs.readFileSync(`./kosmos.json`, 'utf8'));
-    const token = json.token;
-    const prefix = json.prefix;
   }
-  ready = "Yes";
+  const json = JSON.parse(fs.readFileSync(`./kosmos.json`, 'utf8'));
+  prefix = json.prefix;
+  token = json.token;
 }
 
 const Login = async keyPrompt => {
   await isKeyValid(keyPrompt);
   await kosmosJson();
-}
-Login(prompt('Enter your login key: '));
 
-const Discord = require('discord.js');
-const client = new Discord.Client();
-client.commands = new Discord.Collection();
-const folder = fs
-  .readdirSync("src/commands")
+  const Discord = require('discord.js-plus');
+  const client = new Discord.Client();
+  client.commands = new Discord.Collection();
+  const folder = fs
+    .readdirSync("src/commands")
     .filter(file => {
       return file.endsWith(".js");
     });
   for (const file of folder) {
     try {
-    const command = require(`./src/commands/${file}`);
-    const boxCmdName = `${command.name}`.padEnd(20);
-    client.commands.set(command.name, command);
+      const command = require(`./src/commands/${file}`);
+      const boxCmdName = `${command.name}`.padEnd(20);
+      client.commands.set(command.name, command);
     } catch (error) {
       const boxCmdName = `${file}`.padEnd(20);
     }
   }
 
-fs.readdir("./src/events/", (err, files) => {
-  if (err) return console.error;
-  for (const file of files) {
-    if (!file.endsWith(".js")) return;
-    const evt = require(`./src/events/${file}`);
-    let evtName = file.split(".")[0];
-    client.on(evtName, evt.bind(null, client));
-  };
-});
+  fs.readdir("./src/events/", (err, files) => {
+    if (err) return console.error;
+    for (const file of files) {
+      if (!file.endsWith(".js")) return;
+      const evt = require(`./src/events/${file}`);
+      let evtName = file.split(".")[0];
+      client.on(evtName, evt.bind(null, client));
+    };
+  });
 
-console.clear();
-process.stdout.write("\x1Bc")
-console.log(Array(process.stdout.rows + 1).join('\n'));
-try {
-  client.login(config.token);
-} catch (err) {
-  return console.log("The token in kosmos.json was invalid and we couldn't connect to the discord api."); 
-}
-let terminal = "On";
-console.log("Kòsmos Terminal, type help for commands!\n\nKòsmos created by DwifteJB and Thunder7Yoshi");
-while (terminal == "On") {
-  try {
-    let cmd = prompt(`kòsmos:/root/${client.user.id} ${client.user.username}# `)
-  } catch (err) {
-    return console.log("The token in kosmos.json was invalid and we couldn't connect to the discord api."); 
+  console.clear();
+  process.stdout.write("\x1Bc")
+  console.log(Array(process.stdout.rows + 1).join('\n'));
+
+  await client.login(token);
+  if (client.token == undefined) return console.log("The token in kosmos.json was invalid and we couldn't connect to the discord api.");
+  
+  let terminal = "On";
+  console.log("Kòsmos Terminal, type help for commands!\n\nKòsmos created by DwifteJB and Thunder7Yoshi");
+  while (terminal == "On") {
+    try {
+      let cmd = prompt(`kòsmos:/root/${client.user.id} ${client.user.username}# `)
+    } catch (err) {
+      return console.log("The token in kosmos.json was invalid and we couldn't connect to the discord api.");
+    }
+    if (cmd.toLowerCase() == "help") {
+      console.log("Help: \n\nExit: Exits the Selfbot\nServers: Shows all the servers your in\nPrefix: Shows your prefix");
+    } else if (cmd.toLowerCase() == "exit") {
+      // by defining terminal as 'off' it will stop the while loop.
+      terminal = "Off"
+    } else {
+      //  if there is no command with the value of 'cmd' it will display an error message.
+      console.log("kòsmos: command could not be found: " + cmd);
+    }
   }
-  if (cmd.toLowerCase() == "help") { 
-    console.log("Help: \n\nExit: Exits the Selfbot\nServers: Shows all the servers your in\nPrefix: Shows your prefix"); 
-  } else if (cmd.toLowerCase() == "exit") {
-    // by defining terminal as 'off' it will stop the while loop.
-    terminal = "Off"
-  } else {
-    //  if there is no command with the value of 'cmd' it will display an error message.
-    console.log("kòsmos: command could not be found: " + cmd);
-  }
 }
+Login(prompt('Enter your login key: '));

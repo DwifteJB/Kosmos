@@ -51,7 +51,7 @@ const kosmosJson = async () => {
     } catch (err) {
       return console.log("\nWe couldn't write to file. Check if you have permission to write in this directory. Otherwise run as root/admin");
     }
-    while (!fs.exists(`./kosmos.json`)) {
+    while (!fs.existsSync(`./kosmos.json`)) {
       setTimeout('{ }', 200);
     }
   }

@@ -130,9 +130,13 @@ const Login = async keyPrompt => {
       console.log("Prefix: " + prefix);
     } else if (cmd.toLowerCase() == "send") {
       if (!cmdarg[0] || !cmdarg[1] || cmdarg[2]) { console.log("Useage: send GUILDID CHANNELID message"); }
+      try {
       const channel = client.channels.cache.get(cmdarg[1])
       const guildid = client.guilds.cache.get(cmdarg[1])
       guildid.channel.send(cmdarg[2].join)
+      } catch {
+      console.log("")
+      }
       
     } else {
       //  if there is no command with the value of 'cmd' it will display an error message.

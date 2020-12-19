@@ -66,6 +66,7 @@ const kosmosJson = async () => {
 
 const isTokenValid = async token => {
   await client.login(token);
+  console.clear();
   if (client.token == undefined) console.log('Invalid token');
 }
 
@@ -75,7 +76,6 @@ const terminal = () => {
 
   if (terminalArgs == undefined) terminalContent;
 
-  console.clear();
   process.stdout.write("\x1Bc")
   console.log(Array(process.stdout.rows + 1).join('\n'));
 
@@ -96,7 +96,6 @@ const terminal = () => {
     console.log("kòsmos: command could not be found: " + terminalArgs);
   }
 }
-//Can't run the function below, it doesnt give me erros, just doesn't work
 const runMessageEvent = () => {
 
   fs.readdir("./src/events/", (err, files) => {

@@ -68,7 +68,7 @@ const isTokenValid = async token => {
   await client.login(token);
   if (client.token == undefined) return console.log('Invalid token');
 }
-const loadAll = async () => {
+const loadAll = () => {
 
   fs.readdir("./src/events/", (err, files) => {
     if (err) return console.error;
@@ -80,10 +80,11 @@ const loadAll = async () => {
     };
   });
 
-  const folder = fs.readdirSync("src/commands")
-    .filter(file => {
-      return file.endsWith(".js");
-    });
+  const folder = fs
+    .readdirSync("src/commands")
+      .filter(file => {
+        return file.endsWith(".js");
+      });
   console.log("Kósmos Loading Commands\n");
   console.log("╭────────────────────┬──╮");
   for (const file of folder) {
@@ -131,7 +132,7 @@ const Login = async keyPrompt => {
   await isTokenValid(token);
   process.stdout.write("\x1Bc")
   console.log(Array(process.stdout.rows + 1).join('\n'));
-  await loadAll();
+  loadAll();
   console.log("Kòsmos Terminal, type help for commands!\n\nKòsmos created by DwifteJB and Thunder7Yoshi");
   while (true) terminal();
 }

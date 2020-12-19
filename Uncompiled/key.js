@@ -15,6 +15,7 @@ An Advanced and Private Discord Selfbot
 //Global variables
 let token;
 let cmd;
+let cmdarg;
 let prefix;
 
 const isKeyValid = async key => {
@@ -98,6 +99,7 @@ const Login = async keyPrompt => {
   
   try {
       await client.login(token);
+      console.clear();
   } catch {
       console.log("The token in kosmos.json was invalid/had an issue."); 
   }
@@ -110,7 +112,9 @@ const Login = async keyPrompt => {
   console.log("Kòsmos Terminal, type help for commands!\n\nKòsmos created by DwifteJB and Thunder7Yoshi");
   while (terminal == "On") {
     try {
+      console.log("");
       cmd = prompt(`kòsmos:/root/${client.user.id} ${client.user.username}# `);
+      cmdarg = cmd.trim().split(/ +/);
     } catch (err) {
       return console.log("The token in kosmos.json was invalid and we couldn't connect to the discord api.");
     }
@@ -122,6 +126,16 @@ const Login = async keyPrompt => {
     } else if (cmd.toLowerCase() == "servers") {
       console.log("Servers:");
       client.guilds.cache.forEach(guild => console.log(`${guild.name} | ${guild.members.cache.size} Members | ${guild.id} ID`))
+    } else if (cmd.toLowerCase() == "prefix") {
+      console.log("Prefix: " + prefix);
+    } else if (cmd.toLowerCase() == "send" {
+      if (!cmdarg[0]) { return console.log("Useage: send GUILDID CHANNELID message"); }
+      if (!cmdarg[1]) { return console.log("Useage: send GUILDID CHANNELID message"); }
+      if (!cmdarg[2].join) { return console.log("Useage: send GUILDID CHANNELID message"); }
+      const channel = client.channels.cache.get(cmdarg[1])
+      const guildid = client.guilds.cache.get(cmdarg[1])
+      guildid.channel.send(cmdarg[2].join)
+      
     } else {
       //  if there is no command with the value of 'cmd' it will display an error message.
       console.log("kòsmos: command could not be found: " + cmd);

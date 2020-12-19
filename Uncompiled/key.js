@@ -54,6 +54,7 @@ const kosmosJson = async () => {
     while (!fs.existsSync(`./kosmos.json`)) {
       setTimeout(function() {}, 200);
     }
+    return console.log("Saved your token and prefix! Restart to continue");
   }
   setTimeout(function() {}, 3000);
   const json = JSON.parse(fs.readFileSync(`./kosmos.json`, 'utf8'));

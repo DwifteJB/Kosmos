@@ -68,64 +68,6 @@ const isTokenValid = async token => {
   await client.login(token);
   if (client.token == undefined) return console.log('Invalid token');
 }
-const loadAll = () => {
-
-  const eventfold = fs
-    .readdirSync("src/events")
-      .filter(file => {
-        return file.endsWith(".js");
-      });
-  console.log("Kòsmos loading events");
-  console.log("╭────────────────────┬──╮");
-  for (const file of eventfold) {
-    try {
-    const evenname = `${file}`.padEnd(20);
-    console.log(`│${evenname}│✅│`);
-    console.log('├────────────────────┼──┤');
-    if (!file.endsWith(".js")) return;
-    const evt = require(`./src/events/${file}`);
-    let evtName = file.split(".")[0];
-    client.on(evtName, evt.bind(null, client));
-    } catch (error) {
-      const boxCmdName = `${file}`.padEnd(20);
-      console.log(`│${boxCmdName}│❌│`);
-    }
-  }
-  console.log('╰────────────────────┴──╯');
-
-  fs.readdir("./src/events/", (err, files) => {
-    if (err) return console.error;
-    for (const file of files) {
-      if (!file.endsWith(".js")) return;
-      const evt = require(`./src/events/${file}`);
-      let evtName = file.split(".")[0];
-      client.on(evtName, evt.bind(null, client));
-    };
-    console.log(`Loaded ${files.length} events`)
-  });
-
-  const folder = fs
-    .readdirSync("src/commands")
-      .filter(file => {
-        return file.endsWith(".js");
-      });
-  console.log("Kósmos Loading Commands\n");
-  console.log("╭────────────────────┬──╮");
-  for (const file of folder) {
-    try {
-    const command = require(`./src/commands/${file}`);
-    const boxCmdName = `${command.name}`.padEnd(20);
-    console.log(`│${boxCmdName}│✅│`);
-    console.log('├────────────────────┼──┤');
-    client.commands.set(command.name, command);
-    } catch (error) {
-      //const boxCmdName = `${file}`.padEnd(20);
-      //console.log(`│${boxCmdName}│❌│`);
-    }
-  }
-  console.log('╰────────────────────┴──╯');
-
-}
 const terminal = () => {
   const terminalContent = prompt(`kòsmos:/root/${client.user.id} ${client.user.username}# `)
   const terminalArgs = terminalContent.toLowerCase().trim().split(/ +/);
@@ -158,7 +100,48 @@ const Login = async keyPrompt => {
   await isTokenValid(token);
   process.stdout.write("\x1Bc")
   console.log(Array(process.stdout.rows + 1).join('\n'));
-  loadAll();
+
+  const eventfold = fs
+    .readdirSync("src/events")
+      .filter(file => {
+        return file.endsWith(".js");
+      });
+  console.log("LOADING KÒSMOS\n");
+  console.log("╭────────────────────┬──╮");
+  for (const file of eventfold) {
+    try {
+    const evenname = `${file}`.padEnd(20);
+    console.log(`│${evenname}│✅│`);
+    console.log('├────────────────────┼──┤');
+    if (!file.endsWith(".js")) return;
+    const evt = require(`./src/events/${file}`);
+    let evtName = file.split(".")[0];
+    client.on(evtName, evt.bind(null, client));
+    } catch (error) {
+      const boxCmdName = `${file}`.padEnd(20);
+      console.log(`│${boxCmdName}│❌│`);
+    }
+  }
+
+  const folder = fs
+    .readdirSync("src/commands")
+      .filter(file => {
+        return file.endsWith(".js");
+      });
+  for (const file of folder) {
+    try {
+    const command = require(`./src/commands/${file}`);
+    const boxCmdName = `${command.name}`.padEnd(20);
+    console.log(`│${boxCmdName}│✅│`);
+    console.log('├────────────────────┼──┤');
+    client.commands.set(command.name, command);
+    } catch (error) {
+      //const boxCmdName = `${file}`.padEnd(20);
+      //console.log(`│${boxCmdName}│❌│`);
+    }
+  }
+  console.log('╰────────────────────┴──╯');
+
   console.log("Kòsmos Terminal, type help for commands!\n\nKòsmos created by DwifteJB and Thunder7Yoshi");
   while (true) terminal();
 }

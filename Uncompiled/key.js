@@ -16,6 +16,7 @@ An Advanced and Private Discord Selfbot
 let token;
 let cmd;
 let cmdarg;
+let purecmd;
 let prefix;
 
 const isKeyValid = async key => {
@@ -115,6 +116,7 @@ const Login = async keyPrompt => {
       console.log("");
       cmd = prompt(`kòsmos:/root/${client.user.id} ${client.user.username}# `);
       cmdarg = cmd.trim().split(/ +/);
+      purecmd = cmdarg.shift()
     } catch (err) {
       return console.log("The token in kosmos.json was invalid and we couldn't connect to the discord api.");
     }
@@ -128,7 +130,7 @@ const Login = async keyPrompt => {
       client.guilds.cache.forEach(guild => console.log(`${guild.name} | ${guild.members.cache.size} Members | ${guild.id} ID`))
     } else if (cmd.toLowerCase() == "prefix") {
       console.log("Prefix: " + prefix);
-    } else if (cmd.toLowerCase() == "send") {
+    } else if (purecmd == "send") {
       if (!cmdarg[0] || !cmdarg[1] || cmdarg[2]) { console.log("Useage: send GUILDID CHANNELID message"); }
       try {
       const channel = client.channels.cache.get(cmdarg[1])

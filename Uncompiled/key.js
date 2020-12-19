@@ -55,6 +55,7 @@ const kosmosJson = async () => {
       setTimeout(() => {  }, 200);
     }
   }
+  setTimeout(() => {  }, 1000);
   const json = JSON.parse(fs.readFileSync(`./kosmos.json`, 'utf8'));
   prefix = json.prefix;
   token = json.token;

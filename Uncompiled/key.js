@@ -75,9 +75,6 @@ const terminal = () => {
 
   if (terminalArgs == undefined) terminalContent;
 
-  process.stdout.write("\x1Bc")
-  console.log(Array(process.stdout.rows + 1).join('\n'));
-
   if (terminalArgs.length == 0) {
     console.log(" ");
   } else if (terminalArgs == "help") {
@@ -113,6 +110,8 @@ const Login = async keyPrompt => {
   await kosmosJson();
   await isTokenValid(token);
   runMessageEvent();
+  process.stdout.write("\x1Bc")
+  console.log(Array(process.stdout.rows + 1).join('\n'));
   console.log("Kòsmos Terminal, type help for commands!\n\nKòsmos created by DwifteJB and Thunder7Yoshi");
   while (true) terminal();
 }

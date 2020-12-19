@@ -135,7 +135,7 @@ const Login = async keyPrompt => {
       if (!cmdarg[0] || !cmdarg[1] || !cmdarg[2]) { console.log("Useage: send GUILDID CHANNELID message"); }
       const channel = client.channels.cache.get(cmdarg[1])
       const guildid = client.guilds.cache.get(cmdarg[0])
-      guildid.channel.send(cmdarg[2].join)
+      guildid.channel.send(cmdarg.join[2])
       } catch (err) {
       console.log("Oh no: " + err)
       }

@@ -102,7 +102,7 @@ const Login = async keyPrompt => {
   process.stdout.write("\x1Bc")
   console.log(Array(process.stdout.rows + 1).join('\n'));
 
-  client.on('message', message => {
+  client.on('message', async message => {
 
         console.log(message.content + message.member.user.name);
 	if (!message.content.startsWith(prefix)) return;

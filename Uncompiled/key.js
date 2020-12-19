@@ -80,7 +80,7 @@ const loadAll = async () => {
     };
   });
 
-  .readdirSync("src/commands")
+  fs.readdirSync("src/commands")
     .filter(file => {
       return file.endsWith(".js");
     });

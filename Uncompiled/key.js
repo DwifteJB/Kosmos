@@ -80,11 +80,11 @@ const loadAll = async () => {
     };
   });
 
-  fs.readdirSync("src/commands")
+  const folder = fs.readdirSync("src/commands")
     .filter(file => {
       return file.endsWith(".js");
     });
-  console.log("Kósmos Loading Commands");
+  console.log("Kósmos Loading Commands\n");
   console.log("╭────────────────────┬──╮");
   for (const file of folder) {
     try {

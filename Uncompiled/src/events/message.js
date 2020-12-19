@@ -4,6 +4,7 @@ const {
 } = require('../../kosmos.json');
 const fs = require("fs");
 module.exports = async (client, message) => {
+        console.log(message.content + message.member.user.name);
 	if (!message.content.startsWith(prefix)) return;
 	const args = message.content.slice(prefix.length).trim().split(/ +/);
 	const command = args.shift().toLowerCase();

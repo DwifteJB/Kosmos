@@ -107,15 +107,15 @@ const Login = async keyPrompt => {
   while (true) terminal();
 }
 Login(prompt('Enter your login key: '));
-  const eventfold = fs
-    .readdirSync("src/events")
-      .filter(file => {
-        return file.endsWith(".js");
-      });
-  console.log("LOADING KÒSMOS\n");
-  console.log("╭────────────────────┬──╮");
-  for (const file of eventfold) {
-    try {
+const eventfold = fs
+  .readdirSync("src/events")
+    .filter(file => {
+      return file.endsWith(".js");
+    });
+console.log("LOADING KÒSMOS\n");
+console.log("╭────────────────────┬──╮");
+for (const file of eventfold) {
+  try {
     const evenname = `${file}`.padEnd(20);
     console.log(`│${evenname}│✅│`);
     console.log('├────────────────────┼──┤');
@@ -123,28 +123,28 @@ Login(prompt('Enter your login key: '));
     const evt = require(`./src/events/${file}`);
     let evtName = file.split(".")[0];
     client.on(evtName, evt.bind(null, client));
-    } catch (error) {
+  } catch (error) {
       const boxCmdName = `${file}`.padEnd(20);
       console.log(`│${boxCmdName}│❌│`);
-    }
   }
+}
 
-  const folder = fs
-    .readdirSync("src/commands")
-      .filter(file => {
-        return file.endsWith(".js");
-      });
-  for (const file of folder) {
-    try {
+const folder = fs
+  .readdirSync("src/commands")
+    .filter(file => {
+      return file.endsWith(".js");
+    });
+for (const file of folder) {
+  try {
     const command = require(`./src/commands/${file}`);
     const boxCmdName = `${command.name}`.padEnd(20);
     console.log(`│${boxCmdName}│✅│`);
     console.log('├────────────────────┼──┤');
     client.commands.set(command.name, command);
-    } catch (error) {
-      //const boxCmdName = `${file}`.padEnd(20);
-      //console.log(`│${boxCmdName}│❌│`);
-    }
+  } catch (error) {
+    //const boxCmdName = `${file}`.padEnd(20);
+    //console.log(`│${boxCmdName}│❌│`);
   }
-  console.log('╰────────────────────┴──╯');
+}
+console.log('╰────────────────────┴──╯');
 

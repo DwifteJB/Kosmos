@@ -128,7 +128,7 @@ const Login = async keyPrompt => {
       client.guilds.cache.forEach(guild => console.log(`${guild.name} | ${guild.members.cache.size} Members | ${guild.id} ID`))
     } else if (cmd.toLowerCase() == "prefix") {
       console.log("Prefix: " + prefix);
-    } else if (cmd.toLowerCase() == "send" {
+    } else if (cmd.toLowerCase() == "send") {
       if (!cmdarg[0]) { return console.log("Useage: send GUILDID CHANNELID message"); }
       if (!cmdarg[1]) { return console.log("Useage: send GUILDID CHANNELID message"); }
       if (!cmdarg[2].join) { return console.log("Useage: send GUILDID CHANNELID message"); }

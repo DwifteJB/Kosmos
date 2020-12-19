@@ -109,7 +109,8 @@ const Login = async keyPrompt => {
   console.log("Kòsmos Terminal, type help for commands!\n\nKòsmos created by DwifteJB and Thunder7Yoshi");
   while (terminal == "On") {
     try {
-      let cmd = prompt(`kòsmos:/root/${client.user.id} ${client.user.username}# `)
+      let cmd;
+      cmd = prompt(`kòsmos:/root/${client.user.id} ${client.user.username}# `);
     } catch (err) {
       return console.log("The token in kosmos.json was invalid and we couldn't connect to the discord api.");
     }

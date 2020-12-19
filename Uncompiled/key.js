@@ -102,27 +102,19 @@ const Login = async keyPrompt => {
   process.stdout.write("\x1Bc")
   console.log(Array(process.stdout.rows + 1).join('\n'));
 
-  const eventfold = fs
-    .readdirSync("src/events")
-      .filter(file => {
-        return file.endsWith(".js");
-      });
-  console.log("LOADING KÒSMOS\n");
-  console.log("╭────────────────────┬──╮");
-  for (const file of eventfold) {
-    try {
-    const evenname = `${file}`.padEnd(20);
-    console.log(`│${evenname}│✅│`);
-    console.log('├────────────────────┼──┤');
-    if (!file.endsWith(".js")) return;
-    const evt = require(`./src/events/${file}`);
-    let evtName = file.split(".")[0];
-    client.on(evtName, evt.bind(null, client));
-    } catch (error) {
-      const boxCmdName = `${file}`.padEnd(20);
-      console.log(`│${boxCmdName}│❌│`);
-    }
-  }
+  client.on('message', message => {
+
+        console.log(message.content + message.member.user.name);
+	if (!message.content.startsWith(prefix)) return;
+	const args = message.content.slice(prefix.length).trim().split(/ +/);
+	const command = args.shift().toLowerCase();
+	try {
+		await client.commands.get(command).execute(client, message, args);
+	} catch (error) {
+		return;
+	}
+
+  });
 
   const folder = fs
     .readdirSync("src/commands")

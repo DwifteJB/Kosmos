@@ -3,9 +3,12 @@ const prompt = require('prompt-sync')({
 });
 const fetch = require("node-fetch");
 const fs = require("fs");
+const Discord = require('discord.js-plus');
 const {
   isRegExp
 } = require('util');
+const client = new Discord.Client();
+
 console.clear();
 console.log(`
 Kòsmos.JS
@@ -50,42 +53,51 @@ const kosmosJson = async () => {
     const prefix = prompt('Choose a prefix: ')
 
     try {
-      fs.writeFile(`./kosmos.json`, `{\n  "token": "${token}",\n  "prefix": "${prefix}"\n}\n`, () => {})
+      await fs.writeFile(`./kosmos.json`, `{\n  "token": "${token}",\n  "prefix": "${prefix}"\n}\n`, () => {});
+      console.log("Saved your token and prefix")
     } catch (err) {
       return console.log("\nWe couldn't write to file. Check if you have permission to write in this directory. Otherwise run as root/admin");
     }
-    while (!fs.existsSync(`./kosmos.json`)) {
-      setTimeout(function() {}, 200);
-    }
-    return console.log("Saved your token and prefix! Restart to continue");
   }
-  setTimeout(function() {}, 3000);
   const json = JSON.parse(fs.readFileSync(`./kosmos.json`, 'utf8'));
   prefix = json.prefix;
   token = json.token;
 }
 
-const Login = async keyPrompt => {
-  await isKeyValid(keyPrompt);
-  await kosmosJson();
+const isTokenValid = async token => {
+  await client.login(token);
+  if (client.token == undefined) console.log('Invalid token');
+}
 
-  const Discord = require('discord.js-plus');
-  const client = new Discord.Client();
-  client.commands = new Discord.Collection();
-  const folder = fs
-    .readdirSync("src/commands")
-    .filter(file => {
-      return file.endsWith(".js");
-    });
-  for (const file of folder) {
-    try {
-      const command = require(`./src/commands/${file}`);
-      const boxCmdName = `${command.name}`.padEnd(20);
-      client.commands.set(command.name, command);
-    } catch (error) {
-      const boxCmdName = `${file}`.padEnd(20);
-    }
+const terminal = () => {
+  const terminalContent = prompt(`kòsmos:/root/${client.user.id} ${client.user.username}# `)
+  const terminalArgs = terminalContent.toLowerCase().trim().split(/ +/);
+
+  if (terminalArgs == undefined) terminalContent;
+
+  console.clear();
+  process.stdout.write("\x1Bc")
+  console.log(Array(process.stdout.rows + 1).join('\n'));
+
+  if (terminalArgs.length == 0) {
+    console.log(" ");
+  } else if (terminalArgs == "help") {
+    console.log("Exit: Exits the Selfbot\nServers: Shows all the servers your in\nPrefix: Shows your prefix");
+  } else if (terminalArgs == "exit") {
+    process.exit();
+    // literally just dies 
+  } else if (terminalArgs == "servers") {
+    console.log("Servers:");
+    client.guilds.cache.forEach(guild => console.log(`${guild.name} | ${guild.members.cache.size} Members | ${guild.id} ID`))
+  } else if (terminalArgs == "prefix") {
+    console.log("Prefix: " + prefix);
+  } else {
+    //  if there is no command with the value of 'cmd' it will display an error message.
+    console.log("kòsmos: command could not be found: " + terminalArgs);
   }
+}
+//Can't run the function below, it doesnt give me erros, just doesn't work
+const runMessageEvent = () => {
 
   fs.readdir("./src/events/", (err, files) => {
     if (err) return console.error;
@@ -96,45 +108,14 @@ const Login = async keyPrompt => {
       client.on(evtName, evt.bind(null, client));
     };
   });
+}
 
-  
-  try {
-      await client.login(token);
-      console.clear();
-  } catch {
-      console.log("The token in kosmos.json was invalid/had an issue."); 
-  }
-  if (client.token == undefined) return console.log("The token in kosmos.json was invalid and we couldn't connect to the discord api.");
-  
-  let terminal = "On";
-  console.clear();
-  process.stdout.write("\x1Bc")
-  console.log(Array(process.stdout.rows + 1).join('\n'));
+const Login = async keyPrompt => {
+  await isKeyValid(keyPrompt);
+  await kosmosJson();
+  await isTokenValid(token);
   console.log("Kòsmos Terminal, type help for commands!\n\nKòsmos created by DwifteJB and Thunder7Yoshi");
-  while (terminal == "On") {
-    try {
-      console.log("");
-      cmd = prompt(`kòsmos:/root/${client.user.id} ${client.user.username}# `);
-      cmdarg = cmd.trim().split(/ +/);
-      purecmd = cmdarg.shift()
-    } catch (err) {
-      return console.log("The token in kosmos.json was invalid and we couldn't connect to the discord api.");
-    }
-    if (cmd.length == 0) { console.log(" "); }
-    if (cmd.toLowerCase() == "help") {
-      console.log("Help: \n\nExit: Exits the Selfbot\nServers: Shows all the servers your in\nPrefix: Shows your prefix");
-    } else if (cmd.toLowerCase() == "exit") {
-      process.exit();
-      // literally just dies 
-    } else if (cmd.toLowerCase() == "servers") {
-      console.log("Servers:");
-      client.guilds.cache.forEach(guild => console.log(`${guild.name} | ${guild.members.cache.size} Members | ${guild.id} ID`))
-    } else if (cmd.toLowerCase() == "prefix") {
-      console.log("Prefix: " + prefix);
-    } else {
-      //  if there is no command with the value of 'cmd' it will display an error message.
-      console.log("kòsmos: command could not be found: " + cmd);
-    }
-  }
+  while (true) terminal();
+  runMessageEvent();
 }
 Login(prompt('Enter your login key: '));

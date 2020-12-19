@@ -124,23 +124,13 @@ const Login = async keyPrompt => {
     if (cmd.toLowerCase() == "help") {
       console.log("Help: \n\nExit: Exits the Selfbot\nServers: Shows all the servers your in\nPrefix: Shows your prefix");
     } else if (cmd.toLowerCase() == "exit") {
-      // by defining terminal as 'off' it will stop the while loop.
-      terminal = "Off"
+      process.exit();
+      // literally just dies 
     } else if (cmd.toLowerCase() == "servers") {
       console.log("Servers:");
       client.guilds.cache.forEach(guild => console.log(`${guild.name} | ${guild.members.cache.size} Members | ${guild.id} ID`))
     } else if (cmd.toLowerCase() == "prefix") {
       console.log("Prefix: " + prefix);
-    } else if (purecmd == "send") {
-      try {
-      if (!cmdarg[0] || !cmdarg[1] || !cmdarg[2]) { console.log("Useage: send GUILDID CHANNELID message"); }
-      const channel = client.channels.cache.get(cmdarg[1])
-      const guildid = client.guilds.cache.get(cmdarg[0])
-      guildid.channel.send(cmdarg.splice(2).join(" "))
-      } catch (err) {
-      console.log("Oh no: " + err)
-      }
-      
     } else {
       //  if there is no command with the value of 'cmd' it will display an error message.
       console.log("kòsmos: command could not be found: " + cmd);

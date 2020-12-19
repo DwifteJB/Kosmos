@@ -131,9 +131,9 @@ const Login = async keyPrompt => {
     } else if (cmd.toLowerCase() == "prefix") {
       console.log("Prefix: " + prefix);
     } else if (purecmd == "send") {
-      if (!cmdarg[0] || !cmdarg[1] || cmdarg[2]) { console.log("Useage: send GUILDID CHANNELID message"); }
-      const channel = client.channels.cache.get(cmdarg[0])
-      const guildid = client.guilds.cache.get(cmdarg[1])
+      if (!cmdarg[0] || !cmdarg[1] || !cmdarg[2]) { console.log("Useage: send GUILDID CHANNELID message"); }
+      const channel = client.channels.cache.get(cmdarg[1])
+      const guildid = client.guilds.cache.get(cmdarg[0])
       guildid.channel.send(cmdarg[2].join)
       
     } else {

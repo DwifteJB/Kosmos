@@ -120,6 +120,7 @@ const Login = async keyPrompt => {
     } catch (err) {
       return console.log("The token in kosmos.json was invalid and we couldn't connect to the discord api.");
     }
+    if (cmd.length == 0) { console.log(" "); }
     if (cmd.toLowerCase() == "help") {
       console.log("Help: \n\nExit: Exits the Selfbot\nServers: Shows all the servers your in\nPrefix: Shows your prefix");
     } else if (cmd.toLowerCase() == "exit") {
@@ -135,7 +136,7 @@ const Login = async keyPrompt => {
       if (!cmdarg[0] || !cmdarg[1] || !cmdarg[2]) { console.log("Useage: send GUILDID CHANNELID message"); }
       const channel = client.channels.cache.get(cmdarg[1])
       const guildid = client.guilds.cache.get(cmdarg[0])
-      guildid.channel.send(cmdarg.join[2])
+      guildid.channel.send(cmdarg.splice(2).join(" "))
       } catch (err) {
       console.log("Oh no: " + err)
       }

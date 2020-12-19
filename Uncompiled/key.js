@@ -84,11 +84,11 @@ const terminal = () => {
     // literally just dies 
   } else if (terminalArgs == "servers") {
     console.log("Servers:");
-    client.guilds.cache.forEach(guild => console.log(`${guild.name} | ${guild.members.cache.size} Members | ${guild.id} ID`))
+    client.guilds.cache.forEach(guild => console.log(`${guild.name} | ${guild.id} ID`))
   } else if (terminalArgs == "prefix") {
     console.log("Prefix: " + prefix);
   } else if (terminalArgs == "userinfo") {
-    console.log(`${client.user.username} Info:\nFriends ${client.user.friends.size}\nBlocked ${client.user.blockList.size}\nID: ${client.user.id}\nServers: (use the command servers)`);
+    console.log(`${client.user.username} Info:\nFriends ${client.user.friends.size}\nID: ${client.user.id}\nServers: (use the command servers)`);
   } else {
     //  if there is no command with the value of 'cmd' it will display an error message.
     console.log("kòsmos: command could not be found: " + terminalArgs[0]);

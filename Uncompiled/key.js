@@ -114,8 +114,8 @@ const Login = async keyPrompt => {
   await isKeyValid(keyPrompt);
   await kosmosJson();
   await isTokenValid(token);
+  runMessageEvent();
   console.log("Kòsmos Terminal, type help for commands!\n\nKòsmos created by DwifteJB and Thunder7Yoshi");
   while (true) terminal();
-  runMessageEvent();
 }
 Login(prompt('Enter your login key: '));

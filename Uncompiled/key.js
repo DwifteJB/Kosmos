@@ -100,8 +100,11 @@ const Login = async keyPrompt => {
   console.clear();
   process.stdout.write("\x1Bc")
   console.log(Array(process.stdout.rows + 1).join('\n'));
-
-  await client.login(token);
+  try {
+      await client.login(token);
+  } catch {
+      console.log("The token in kosmos.json was invalid/had an issue."); 
+  }
   if (client.token == undefined) return console.log("The token in kosmos.json was invalid and we couldn't connect to the discord api.");
   
   let Terminal = "On";

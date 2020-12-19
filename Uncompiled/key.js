@@ -52,10 +52,10 @@ const kosmosJson = async () => {
       return console.log("\nWe couldn't write to file. Check if you have permission to write in this directory. Otherwise run as root/admin");
     }
     while (!fs.existsSync(`./kosmos.json`)) {
-      setTimeout(() => { console.log("") }, 200);
+      setTimeout(() => {  }, 200);
     }
   }
-  const json = JSON.parse(fs.readFile(`./kosmos.json`, 'utf8'));
+  const json = JSON.parse(fs.readFileSync(`./kosmos.json`, 'utf8'));
   prefix = json.prefix;
   token = json.token;
 }

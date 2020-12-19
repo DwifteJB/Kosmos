@@ -76,7 +76,7 @@ const loadAll = () => {
         return file.endsWith(".js");
       });
   console.log("Kòsmos loading events");
-
+  console.log("╭────────────────────┬──╮");
   for (const file of eventfold) {
     try {
     const evenname = `${file}`.padEnd(20);

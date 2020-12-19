@@ -96,7 +96,7 @@ const Login = async keyPrompt => {
   await client.login(token);
   if (client.token == undefined) return console.log("The token in kosmos.json was invalid and we couldn't connect to the discord api.");
   
-
+  let Terminal == "On";
   console.log("Kòsmos Terminal, type help for commands!\n\nKòsmos created by DwifteJB and Thunder7Yoshi");
   while (terminal == "On") {
     try {

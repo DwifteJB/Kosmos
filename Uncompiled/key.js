@@ -55,11 +55,11 @@ const kosmosJson = async () => {
       setTimeout(() => {  }, 200);
     }
   }
-  setTimeout(() => {  }, 1000);
+  setTimeout(() => { console.log("Retry.."); }, 1000);
   try {
-      const json = JSON.parse(fs.readFileSync(`./kosmos.json`, 'utf8'));
+    const json = JSON.parse(fs.readFileSync(`./kosmos.json`, 'utf8'));
   } catch {
-      return kosmosJson();
+    return kosmosJson();
   }
   prefix = json.prefix;
   token = json.token;

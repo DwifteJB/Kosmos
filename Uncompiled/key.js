@@ -55,11 +55,11 @@ const kosmosJson = async () => {
       setTimeout(() => {  }, 200);
     }
   }
-  setTimeout(() => { console.log("Retry.."); }, 1000);
+  setTimeout(() => { }, 3000);
   try {
     const json = JSON.parse(fs.readFileSync(`./kosmos.json`, 'utf8'));
   } catch {
-    return kosmosJson();
+    return console.log("Successfully saved settings, restart the bot!"); 
   }
   prefix = json.prefix;
   token = json.token;

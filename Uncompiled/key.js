@@ -99,7 +99,6 @@ const Login = async keyPrompt => {
   await isKeyValid(keyPrompt);
   await kosmosJson();
   await isTokenValid(token);
-  await let peaper = "True";
   await process.stdout.write("\x1Bc")
   await console.log(Array(process.stdout.rows + 1).join('\n'));
 

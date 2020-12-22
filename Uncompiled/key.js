@@ -103,7 +103,7 @@ const Login = async keyPrompt => {
   await console.log(Array(process.stdout.rows + 1).join('\n'));
 
   await console.log("Kòsmos Terminal, type help for commands!\n\nKòsmos created by DwifteJB and Thunder7Yoshi");
-  while (true) terminal();
+  // while (true) terminal();
 }
 Login(prompt('Enter your login key: '));
 

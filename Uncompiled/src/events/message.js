@@ -10,6 +10,6 @@ module.exports = async (client, message) => {
 	try {
 		await client.commands.get(command).execute(client, message, args);
 	} catch (error) {
-		return;
+		console.log(error);
 	}
 }

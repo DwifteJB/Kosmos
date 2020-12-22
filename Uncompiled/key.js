@@ -113,8 +113,8 @@ const terminal = async () => {
 
 const Login = async keyPrompt => {
   await isKeyValid(keyPrompt);
-  kosmosJson();
-  isTokenValid(token);
+  await kosmosJson();
+  await isTokenValid(token);
   await process.stdout.write("\x1Bc")
   await console.log(Array(process.stdout.rows + 1).join('\n'));
 
@@ -122,10 +122,7 @@ const Login = async keyPrompt => {
   await terminal();
 }
 
-rl.question("Login Key: ", function(key) {
-  Login(key);
-  rl.close();
-});
+Login(prompt("Login Key: "))
 
 client.on('message', async message => {
 	// console.log(message.content);

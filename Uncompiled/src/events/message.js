@@ -5,7 +5,7 @@ const {
 const fs = require("fs");
 module.exports = async (client, message) => {
 	if (!message.content.startsWith(prefix)) return;
-        if (!message.member.id === message.member.id) return;
+        if (!message.member.id - message.member.id == 0) return;
 	const args = message.content.slice(prefix.length).trim().split(/ +/);
 	const command = args.shift().toLowerCase();
         console.log(command);

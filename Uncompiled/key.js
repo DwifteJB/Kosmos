@@ -124,10 +124,10 @@ const terminal = async () => {
 const Login = async keyPrompt => {
   await isKeyValid(keyPrompt);
   await kosmosJson();
-  await process.stdout.write("\x1Bc")
-  await console.log(Array(process.stdout.rows + 1).join('\n'));
   await isTokenValid(token);
   await console.clear();
+  await process.stdout.write("\x1Bc")
+  await console.log(Array(process.stdout.rows + 1).join('\n'));
   await console.log("Kòsmos Terminal, type help for commands!\n\nKòsmos created by DwifteJB and Thunder7Yoshi");
   await terminal();
 }

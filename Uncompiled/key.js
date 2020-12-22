@@ -17,6 +17,8 @@ const {
 } = require('util');
 const client = new Discord.Client();
 
+client.commands = new Discord.Collection();
+
 console.clear();
 console.log(`
 Kòsmos.JS

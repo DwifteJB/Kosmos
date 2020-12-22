@@ -118,7 +118,6 @@ const terminal = async () => {
     //  if there is no command with the value of 'cmd' it will display an error message.
     console.log("kòsmos: command could not be found: " + terminalArgs[0]);
   }
-   });
   }
 }
 

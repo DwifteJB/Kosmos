@@ -105,29 +105,13 @@ const Login = async keyPrompt => {
   await console.log("Kòsmos Terminal, type help for commands!\n\nKòsmos created by DwifteJB and Thunder7Yoshi");
   while (true) terminal();
 }
-Login(prompt('Enter your login key: '));
-const eventfold = fs
-  .readdirSync("src/events")
-    .filter(file => {
-      return file.endsWith(".js");
-    });
-console.log("LOADING KÒSMOS\n");
-console.log("╭────────────────────┬──╮");
-for (const file of eventfold) {
-  try {
-    const evenname = `${file}`.padEnd(20);
-    console.log(`│${evenname}│✅│`);
-    console.log('├────────────────────┼──┤');
-    if (!file.endsWith(".js")) return;
-    const evt = require(`./src/events/${file}`);
-    let evtName = file.split(".")[0];
-    client.on(evtName, evt.bind(null, client));
-  } catch (error) {
-      const boxCmdName = `${file}`.padEnd(20);
-      console.log(`│${boxCmdName}│❌│`);
-  }
-}
+await Login(prompt('Enter your login key: '));
 
+client.on('message', message => {
+	console.log(message.content);
+});
+
+console.log("╭────────────────────┬──╮");
 const folder = fs
   .readdirSync("src/commands")
     .filter(file => {

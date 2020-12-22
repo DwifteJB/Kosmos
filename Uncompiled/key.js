@@ -92,6 +92,39 @@ const isTokenValid = async token => {
   //
   }
   if (client.token == undefined) return console.log('Invalid token');
+
+const folder = fs
+  .readdirSync("src/commands")
+    .filter(file => {
+      return file.endsWith(".js");
+    });
+  console.log("╭────────────────────┬──╮");
+  for (const file of folder) {
+    try {
+    const command = require(`./src/commands/${file}`);
+    const boxCmdName = `${command.name}`.padEnd(20);
+    console.log(`│${boxCmdName}│✅│`);
+    console.log('├────────────────────┼──┤');
+    client.commands.set(command.name, command);
+    } catch (error) {
+      const boxCmdName = `${file}`.padEnd(20);
+      console.log(`│${boxCmdName}│❌│`);
+      console.log(error)
+    }
+  }
+console.log('╰────────────────────┴──╯');
+
+fs.readdir("./src/events/", (err, files) => {
+  if (err) return console.error;
+  for (const file of files) {
+    if (!file.endsWith(".js")) return;
+    const evt = require(`./src/events/${file}`);
+    let evtName = file.split(".")[0];
+    client.on(evtName, evt.bind(null, client));
+  };
+  console.log(`Loaded ${files.length} events`)
+})
+
 }
 const terminal = async () => {
   rl.question(`kòsmos:/root/${client.user.id} ${client.user.username}# `, function(terminalContent) {
@@ -133,40 +166,3 @@ const Login = async keyPrompt => {
 }
 
 Login(prompt("Login Key: "))
-
-const eventfold = fs
-  .readdirSync("src/events")
-    .filter(file => {
-      return file.endsWith(".js");
-    });
-for (const file of eventfold) {
-  try {
-    const evenname = `${file}`.padEnd(20);
-    //console.log(`│${evenname}│✅│`);
-    //console.log('├────────────────────┼──┤');
-    if (!file.endsWith(".js")) return;
-    const evt = require(`./src/events/${file}`);
-    let evtName = file.split(".")[0];
-    client.on(evtName, evt.bind(null, client));
-  } catch (error) {
-      //const boxCmdName = `${file}`.padEnd(20);
-      //console.log(`│${boxCmdName}│❌│`);
-  }
-}
-
-const folder = fs
-  .readdirSync("src/commands")
-    .filter(file => {
-      return file.endsWith(".js");
-    });
-for (const file of folder) {
-  try {
-    const command = require(`./src/commands/${file}`);
-    const boxCmdName = `${command.name}`.padEnd(20);
-    client.commands.set(command.name, command);
-  } catch (error) {
-    //const boxCmdName = `${file}`.padEnd(20);
-    //console.log(`│${boxCmdName}│❌│`);
-  }
-}
-

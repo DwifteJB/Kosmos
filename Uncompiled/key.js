@@ -95,7 +95,7 @@ const isTokenValid = async token => {
 }
 const terminal = async () => {
   while (true) {
-  const terminalContent = await askQuestion(kòsmos:/root/${client.user.id} ${client.user.username}# `)
+  const terminalContent = await askQuestion(`kòsmos:/root/${client.user.id} ${client.user.username}# `)
   const terminalArgs = terminalContent.toLowerCase().trim().split(/ +/);
 
   if (terminalArgs == undefined) terminalContent;

@@ -111,8 +111,8 @@ const terminal = async () => {
 
 const Login = async keyPrompt => {
   await isKeyValid(keyPrompt);
-  await kosmosJson();
-  await isTokenValid(token);
+  kosmosJson();
+  isTokenValid(token);
   await process.stdout.write("\x1Bc")
   await console.log(Array(process.stdout.rows + 1).join('\n'));
 
@@ -144,5 +144,4 @@ for (const file of folder) {
     //console.log(`│${boxCmdName}│❌│`);
   }
 }
-console.log('╰────────────────────┴──╯');
 

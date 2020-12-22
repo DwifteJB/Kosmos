@@ -1,4 +1,4 @@
-const Discord = require("discord.js-plus");
+const Discord = require("discord.js");
 const {
 	prefix
 } = require('../../kosmos.json');

@@ -117,7 +117,6 @@ const terminal = async () => {
     //  if there is no command with the value of 'cmd' it will display an error message.
     console.log("kòsmos: command could not be found: " + terminalArgs[0]);
   }
-  console.log("abc");
   terminal();
   });
 }
@@ -125,19 +124,35 @@ const terminal = async () => {
 const Login = async keyPrompt => {
   await isKeyValid(keyPrompt);
   await kosmosJson();
-  await isTokenValid(token);
   await process.stdout.write("\x1Bc")
   await console.log(Array(process.stdout.rows + 1).join('\n'));
-
+  await isTokenValid(token);
+  await console.clear();
   await console.log("Kòsmos Terminal, type help for commands!\n\nKòsmos created by DwifteJB and Thunder7Yoshi");
   await terminal();
 }
 
 Login(prompt("Login Key: "))
 
-client.on('message', async message => {
-	console.log(message.content);
-});
+const eventfold = fs
+  .readdirSync("src/events")
+    .filter(file => {
+      return file.endsWith(".js");
+    });
+for (const file of eventfold) {
+  try {
+    const evenname = `${file}`.padEnd(20);
+    //console.log(`│${evenname}│✅│`);
+    //console.log('├────────────────────┼──┤');
+    if (!file.endsWith(".js")) return;
+    const evt = require(`./src/events/${file}`);
+    let evtName = file.split(".")[0];
+    client.on(evtName, evt.bind(null, client));
+  } catch (error) {
+      //const boxCmdName = `${file}`.padEnd(20);
+      //console.log(`│${boxCmdName}│❌│`);
+  }
+}
 
 const folder = fs
   .readdirSync("src/commands")

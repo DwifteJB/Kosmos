@@ -76,7 +76,7 @@ const isTokenValid = async token => {
 }
 const terminal = async () => {
   while (true) {
-  const terminalContent = rl.question(`kòsmos:/root/${client.user.id} ${client.user.username}# `, function(cmd) { return cmd; }))
+  const terminalContent = rl.question(`kòsmos:/root/${client.user.id} ${client.user.username}# `, function(cmd) { return cmd; })
 prompt(`kòsmos:/root/${client.user.id} ${client.user.username}# `)
   const terminalArgs = terminalContent.toLowerCase().trim().split(/ +/);
 

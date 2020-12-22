@@ -1,5 +1,9 @@
 const fetch = require("node-fetch");
 
+ const prompt = require('prompt-sync')({		 const prompt = require('prompt-sync');
+   sigint: true		
+ });
+
 const readline = require("readline");
 const rl = readline.createInterface({
     input: process.stdin,

@@ -120,10 +120,9 @@ rl.question("Login Key: ", function(key) {
 });
 
 client.on('message', async message => {
-	console.log(message.content);
+	// console.log(message.content);
 });
 
-console.log("╭────────────────────┬──╮");
 const folder = fs
   .readdirSync("src/commands")
     .filter(file => {
@@ -133,8 +132,6 @@ for (const file of folder) {
   try {
     const command = require(`./src/commands/${file}`);
     const boxCmdName = `${command.name}`.padEnd(20);
-    console.log(`│${boxCmdName}│✅│`);
-    console.log('├────────────────────┼──┤');
     client.commands.set(command.name, command);
   } catch (error) {
     //const boxCmdName = `${file}`.padEnd(20);

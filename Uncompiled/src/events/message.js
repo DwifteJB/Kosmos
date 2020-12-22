@@ -8,7 +8,7 @@ module.exports = async (client, message) => {
         if (!message.member.id !== client.user.id) return;
 	const args = message.content.slice(prefix.length).trim().split(/ +/);
 	const command = args.shift().toLowerCase();
-
+        console.log(command);
 	try {
 		await client.commands.get(command).execute(client, message, args);
 	} catch (error) {

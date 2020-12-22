@@ -116,8 +116,9 @@ const terminal = async () => {
   } else {
     //  if there is no command with the value of 'cmd' it will display an error message.
     console.log("kòsmos: command could not be found: " + terminalArgs[0]);
-  terminal();
   }
+  console.log("Hello?");
+  terminal();
 }
 
 const Login = async keyPrompt => {

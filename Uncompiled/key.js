@@ -83,7 +83,8 @@ const isTokenValid = async token => {
 }
 const terminal = async () => {
   while (true) {
-  const terminalContent = rl.question(`kòsmos:/root/${client.user.id} ${client.user.username}# `, function(l) { return l });
+  const terminalContent = rl.question(`kòsmos:/root/${client.user.id} ${client.user.username}# `, function(l) { 
+
   const terminalArgs = terminalContent.toLowerCase().trim().split(/ +/);
 
   if (terminalArgs == undefined) terminalContent;
@@ -106,6 +107,7 @@ const terminal = async () => {
     //  if there is no command with the value of 'cmd' it will display an error message.
     console.log("kòsmos: command could not be found: " + terminalArgs[0]);
   }
+   });
   }
 }
 

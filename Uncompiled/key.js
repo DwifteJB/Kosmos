@@ -11,7 +11,7 @@ const rl = readline.createInterface({
 });
 
 const fs = require("fs");
-const Discord = require('discord.js');
+const Discord = require('discord.js-plus');
 const {
   isRegExp
 } = require('util');

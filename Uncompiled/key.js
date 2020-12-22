@@ -30,6 +30,18 @@ let cmdarg;
 let purecmd;
 let prefix;
 
+function askQuestion(query) {
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
+
+    return new Promise(resolve => rl.question(query, ans => {
+        rl.close();
+        resolve(ans);
+    }))
+}
+
 const isKeyValid = async key => {
   //Checking if the string isn't empty
   let newKey = '';
@@ -83,8 +95,7 @@ const isTokenValid = async token => {
 }
 const terminal = async () => {
   while (true) {
-  const terminalContent = rl.question(`kòsmos:/root/${client.user.id} ${client.user.username}# `, function(l) { 
-
+  const terminalContent = await askQuestion(kòsmos:/root/${client.user.id} ${client.user.username}# `)
   const terminalArgs = terminalContent.toLowerCase().trim().split(/ +/);
 
   if (terminalArgs == undefined) terminalContent;

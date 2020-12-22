@@ -109,7 +109,7 @@ const Login = async keyPrompt => {
 }
 Login(prompt('Enter your login key: '));
 
-client.on('message', message => {
+client.on('message', async message => {
 	console.log(message.content);
 });
 

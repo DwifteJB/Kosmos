@@ -94,7 +94,6 @@ const isTokenValid = async token => {
   if (client.token == undefined) return console.log('Invalid token');
 }
 const terminal = async () => {
-  while (true) {
   const terminalContent = await askQuestion(`kòsmos:/root/${client.user.id} ${client.user.username}# `)
   const terminalArgs = terminalContent.toLowerCase().trim().split(/ +/);
 
@@ -117,7 +116,7 @@ const terminal = async () => {
   } else {
     //  if there is no command with the value of 'cmd' it will display an error message.
     console.log("kòsmos: command could not be found: " + terminalArgs[0]);
-  }
+  terminal();
   }
 }
 
@@ -135,7 +134,7 @@ const Login = async keyPrompt => {
 Login(prompt("Login Key: "))
 
 client.on('message', async message => {
-	// console.log(message.content);
+	console.log(message.content);
 });
 
 const folder = fs

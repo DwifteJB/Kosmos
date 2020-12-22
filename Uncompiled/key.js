@@ -1,6 +1,4 @@
-const prompt = require('prompt-sync')({
-  sigint: true
-});
+const prompt = require('prompt-sync');
 const fetch = require("node-fetch");
 const fs = require("fs");
 const Discord = require('discord.js-plus');

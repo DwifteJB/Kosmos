@@ -1,4 +1,3 @@
-const prompt = require('prompt-sync');
 const fetch = require("node-fetch");
 
 const readline = require("readline");
@@ -70,14 +69,17 @@ const kosmosJson = async () => {
 }
 
 const isTokenValid = async token => {
+  try {
   await client.login(token);
   console.clear();
+  } catch {
+  //
+  }
   if (client.token == undefined) return console.log('Invalid token');
 }
 const terminal = async () => {
   while (true) {
   const terminalContent = rl.question(`kòsmos:/root/${client.user.id} ${client.user.username}# `, function(l) { return l });
-prompt(`kòsmos:/root/${client.user.id} ${client.user.username}# `)
   const terminalArgs = terminalContent.toLowerCase().trim().split(/ +/);
 
   if (terminalArgs == undefined) terminalContent;

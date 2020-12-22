@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const Discord = require('discord.js-plus');
 module.exports = {
 	name: 'ping',
 	description: 'Ping!',

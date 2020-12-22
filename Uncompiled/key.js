@@ -1,5 +1,12 @@
 const prompt = require('prompt-sync');
 const fetch = require("node-fetch");
+
+const readline = require("readline");
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
 const fs = require("fs");
 const Discord = require('discord.js-plus');
 const {
@@ -69,7 +76,8 @@ const isTokenValid = async token => {
 }
 const terminal = async () => {
   while (true) {
-  const terminalContent = prompt(`kòsmos:/root/${client.user.id} ${client.user.username}# `)
+  const terminalContent = rl.question(`kòsmos:/root/${client.user.id} ${client.user.username}# `, function(cmd) { return cmd; });)
+prompt(`kòsmos:/root/${client.user.id} ${client.user.username}# `)
   const terminalArgs = terminalContent.toLowerCase().trim().split(/ +/);
 
   if (terminalArgs == undefined) terminalContent;
@@ -105,7 +113,11 @@ const Login = async keyPrompt => {
   await console.log("Kòsmos Terminal, type help for commands!\n\nKòsmos created by DwifteJB and Thunder7Yoshi");
   await terminal();
 }
-Login(prompt('Enter your login key: '));
+
+rl.question("Login Key: ", function(key) {
+  Login(key);
+  rl.close();
+}
 
 client.on('message', async message => {
 	console.log(message.content);

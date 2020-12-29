@@ -1,3 +1,7 @@
+// Stuff for Developers
+// So basically just Thunder and Dwifte
+const version = "0.1";
+//
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const prompt = require('prompt-sync')({
@@ -11,7 +15,15 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-
+const checkVersion = async () => {
+    const ver = await fetch('https://dwiftejb.github.io/KosmosSite/info.json').then(response => response.json());
+    if (ver.version > version) {
+        console.log(`Version ${version} -> ${ver.version} available!\nChangelog: ${ver.changelog}\nDownload: ${ver.download_link}`);
+        process.exit();
+    } else {
+        console.log(`You're Currently on Version ${version}`);
+    }
+}
 const checkPassword = async parameter => {
     let key = parameter;
     if (key.toLowerCase() == 'cancel') process.exit();
@@ -376,12 +388,19 @@ const selfbotCode = async () => {
 
         //Ends the bot process by using process.exit();
         if (command === 'stop' || command === 'off') return process.exit();
-
     });
 }
 
 
 const Main = async () => {
+    console.log(`
+   __ __                      
+  / //_/__  ___ __ _  ___  ___
+ / ,< / _ \(_-</  ' \/ _ \(_-<
+/_/|_|\___/___/_/_/_/\___/___/
+                              
+Created by DwifteJB and Thunder7Yoshi`);
+    await checkVersion();
     await checkPassword(prompt.hide('Password: '));
     if (!fs.existsSync('./config.json')) {
         console.log('\nSince this is your first time authenticating you must provide some informations.\n');

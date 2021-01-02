@@ -242,19 +242,29 @@ const selfbotCode = async () => {
         }
 
         if (command === 'presence') {
-
+            let type;
             //type = args (first argument)
-            let type = args[0];
+            if (!args[0]) {
+              type = '1';
+            } else {
+              type = args[0];
+            }
 
             ///Checks if the first argument is equal to any of the numbers below, if so it sets the respective Activity type
             if (type === '1') type = 'PLAYING';
             if (type === '2') type = 'STREAMING';
             if (type === '3') type = 'LISTENING';
             if (type === '4') type = 'WATCHING';
+            if (type === args[0]) type = 'PLAYING';
             //CHECKING THE ACTIVITY TYPE END
 
             //What we actually want as Activity (Not type)
-            const activity = args.slice(1).join(' ');
+            let activity;
+            if (!args[1]) {
+              activity = 'with myself';
+            } else {
+              activity = args.slice(1).join(' ');
+            }
 
             //Checks if the first argument is equal to 'reset', if so it sets the Activity to null, (removes it).
             if (args[0] === 'reset') {
